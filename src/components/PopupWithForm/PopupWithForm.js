@@ -1,13 +1,18 @@
 import React from "react";
 
 function PopupWithForm(props) {
+  
   return (
-    <section className={`popup popup_${props.name} ${props.isOpen?'popup_opened':''}`}>
+    <section
+      className={`popup popup_${props.name} ${
+        props.isOpen ? "popup_opened" : ""
+      }`}
+      onClick={props.isClose}
+    >
       <div className="popup__container">
         <button
           type="button"
           className={`popup__exit-button popup__exit-button_${props.name}`}
-          onClick={props.isClose}
         ></button>
         <form
           className={`popup__form popup__form_${props.name}`}
