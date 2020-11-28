@@ -1,5 +1,5 @@
 import React from "react";
-import api from "../../utils/Api";
+import api from "../../utils/api";
 import Card from "../Card/Card";
 
 function Main(props) {
@@ -22,11 +22,9 @@ function Main(props) {
   }, []);
 
   React.useEffect(() => {
-    api.getInitialCards().then((res) => {
-      const list = res.map((item) => {
-        return item;
-      });
-      setCards(list);
+    api.getInitialCards()
+    .then((res) => {
+      setCards(res);
     });
   }, []);
 
@@ -60,13 +58,10 @@ function Main(props) {
         ></button>
       </section>
       <section className="elements">
-        {cards.map((elem, id) => {
+        {cards.map((elem) => {
           return (
             <Card
-              key={id}
-              name={elem.name}
-              link={elem.link}
-              likes={elem.likes}
+              data={elem}
               onCardClick={props.onCardClick}
             />
           );

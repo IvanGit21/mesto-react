@@ -9,11 +9,11 @@ import EditAvatarForm from "../EditAvatarForm/EditAvatarForm";
 import ImagePopup from "../ImagePopup/ImagePopup";
 
 function App() {
-  const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = React.useState(
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(
     false
   );
-  const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = React.useState(
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(
     false
   );
   const [selectedCard, setSelectedCard] = React.useState({
@@ -22,15 +22,15 @@ function App() {
   });
 
   function handleAddPlaceClick() {
-    setisAddPlacePopupOpen(true);
+    setIsAddPlacePopupOpen(true);
   }
 
   function handleEditProfileClick() {
-    setisEditProfilePopupOpen(true);
+    setIsEditProfilePopupOpen(true);
   }
 
   function handleEditAvatarClick() {
-    setisEditAvatarPopupOpen(true);
+    setIsEditAvatarPopupOpen(true);
   }
 
   function handleCardClick(card) {
@@ -38,15 +38,10 @@ function App() {
   }
 
   function closeAllPopups(evt) {
-    if (
-      evt.target.classList.contains("popup__exit-button") ||
-      evt.target === evt.currentTarget
-    ) {
-      setisAddPlacePopupOpen(false);
-      setisEditProfilePopupOpen(false);
-      setisEditAvatarPopupOpen(false);
+      setIsAddPlacePopupOpen(false);
+      setIsEditProfilePopupOpen(false);
+      setIsEditAvatarPopupOpen(false);
       setSelectedCard({ isOpen: false, card: {} });
-    }
   }
   return (
     <div className="page">
@@ -62,21 +57,21 @@ function App() {
         name="add"
         title="Новое место"
         isOpen={isAddPlacePopupOpen}
-        isClose={closeAllPopups}
+        onClose={closeAllPopups}
         children={<AddForm />}
       />
       <PopupWithForm
         name="edit"
         title="Редактировать профиль"
         isOpen={isEditProfilePopupOpen}
-        isClose={closeAllPopups}
+        onClose={closeAllPopups}
         children={<EditForm />}
       />
       <PopupWithForm
         name="edit-avatar"
         title="Обновить аватар"
         isOpen={isEditAvatarPopupOpen}
-        isClose={closeAllPopups}
+        onClose={closeAllPopups}
         children={<EditAvatarForm />}
       />
       <ImagePopup data={selectedCard} isClose={closeAllPopups} />
