@@ -38,10 +38,10 @@ function App() {
   }
 
   function closeAllPopups(evt) {
-      setIsAddPlacePopupOpen(false);
-      setIsEditProfilePopupOpen(false);
-      setIsEditAvatarPopupOpen(false);
-      setSelectedCard({ isOpen: false, card: {} });
+    setIsAddPlacePopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setSelectedCard({ isOpen: false, card: {} });
   }
   return (
     <div className="page">

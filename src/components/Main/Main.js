@@ -22,8 +22,7 @@ function Main(props) {
   }, []);
 
   React.useEffect(() => {
-    api.getInitialCards()
-    .then((res) => {
+    api.getInitialCards().then((res) => {
       setCards(res);
     });
   }, []);
@@ -60,10 +59,7 @@ function Main(props) {
       <section className="elements">
         {cards.map((elem) => {
           return (
-            <Card
-              data={elem}
-              onCardClick={props.onCardClick}
-            />
+            <Card key={elem._id} data={elem} onCardClick={props.onCardClick} />
           );
         })}
       </section>
