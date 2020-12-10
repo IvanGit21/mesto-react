@@ -3,6 +3,7 @@
     top:18px;
     right: 15px;
     cursor: pointer;
+    display: none;
 }
 .element__del-button:hover{
     opacity: 0.6;
