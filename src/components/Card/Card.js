@@ -2,7 +2,7 @@ import React from "react";
 import delButton from "../../images/Delite.svg";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
-function Card({ data, onCardClick, onCardLike }) {
+function Card({ data, onCardClick, onCardLike, onCardDelete }) {
 
   function handleOnClick() {
     onCardClick({ name: data.name, link: data.link });
@@ -10,18 +10,20 @@ function Card({ data, onCardClick, onCardLike }) {
   function handleLikeClick(){
     onCardLike(data)
   }
+  function handleDeleteClick(){
+    onCardDelete(data)
+  }
 
   const currentUser = React.useContext(CurrentUserContext);
-  const isOwner = data._id === currentUser._id;
+  const isOwner = data.owner._id === currentUser._id;
   const isLiked = data.likes.some((el) => el._id === currentUser._id);
   return (
     <div className="element">
       <img
         src={delButton}
         alt="Иконка"
-        className={`element__del-button ${
-          isOwner ? "element__del-button_active" : ""
-        }`}
+        className={`element__del-button ${isOwner ? "element__del-button_active" : ""}`}
+        onClick={handleDeleteClick}
       />
       <img
         src={data.link}

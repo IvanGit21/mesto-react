@@ -42,6 +42,20 @@ function Main(props) {
     }
   }
 
+  function handleCardDelete(card) {
+    api
+      .deleteCard(card._id)
+      .then((result) => {
+        const newCard = cards.filter((item) => {
+          return item._id !== card._id;
+        });
+        setCards(newCard);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <main className="content">
       <section className="profile">
@@ -83,6 +97,7 @@ function Main(props) {
               data={elem}
               onCardClick={props.onCardClick}
               onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />
           );
         })}
