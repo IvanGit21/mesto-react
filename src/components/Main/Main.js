@@ -13,6 +13,35 @@ function Main(props) {
     });
   }, []);
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((el) => el._id === currentUser._id);
+    if (isLiked) {
+      api
+        .removeLike(card._id)
+        .then((result) => {
+          const newCards = cards.map((item) => {
+            return item._id === card._id ? result : item;
+          });
+          setCards(newCards);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      api
+        .setLike(card._id)
+        .then((result) => {
+          const newCards = cards.map((item) => {
+            return item._id === card._id ? result : item;
+          });
+          setCards(newCards);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+
   return (
     <main className="content">
       <section className="profile">
@@ -49,7 +78,12 @@ function Main(props) {
       <section className="elements">
         {cards.map((elem) => {
           return (
-            <Card key={elem._id} data={elem} onCardClick={props.onCardClick} />
+            <Card
+              key={elem._id}
+              data={elem}
+              onCardClick={props.onCardClick}
+              onCardLike={handleCardLike}
+            />
           );
         })}
       </section>

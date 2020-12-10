@@ -2,10 +2,15 @@ import React from "react";
 import delButton from "../../images/Delite.svg";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
-function Card({ data, onCardClick }) {
+function Card({ data, onCardClick, onCardLike }) {
+
   function handleOnClick() {
     onCardClick({ name: data.name, link: data.link });
   }
+  function handleLikeClick(){
+    onCardLike(data)
+  }
+
   const currentUser = React.useContext(CurrentUserContext);
   const isOwner = data._id === currentUser._id;
   const isLiked = data.likes.some((el) => el._id === currentUser._id);
@@ -28,8 +33,9 @@ function Card({ data, onCardClick }) {
         <h2 className="element__title">{data.name}</h2>
         <div className="grope-container">
           <button
-            className={`${isLiked ? "grope-button_active" : "grope-button"}`}
+            className={`grope-button ${isLiked ? "grope-button_active" : ""}`}
             aria-label="Кнопка отметки"
+            onClick={handleLikeClick}
           ></button>
           <span className="grope-counter">{data.likes.length}</span>
         </div>
