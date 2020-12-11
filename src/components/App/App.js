@@ -4,11 +4,11 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
 import AddForm from "../AddForm/AddForm";
-import EditForm from "../EditForm/EditForm";
 import EditAvatarForm from "../EditAvatarForm/EditAvatarForm";
 import ImagePopup from "../ImagePopup/ImagePopup";
 import api from "../../utils/api";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import EditProfilePopup from '../EditProfilePopup/EditProfilePopup'
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(
@@ -57,6 +57,19 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setSelectedCard({ isOpen: false, card: {} });
   }
+
+  function handleUpdateUser(data) {
+    api.dispatchProfileInfo(data)
+      .then((result)=>{
+        setCurrentUser(result)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+      .finally(()=>{
+        closeAllPopups();
+      })
+  }
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -75,13 +88,7 @@ function App() {
           onClose={closeAllPopups}
           children={<AddForm />}
         />
-        <PopupWithForm
-          name="edit"
-          title="Редактировать профиль"
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          children={<EditForm />}
-        />
+        
         <PopupWithForm
           name="edit-avatar"
           title="Обновить аватар"
@@ -90,6 +97,7 @@ function App() {
           children={<EditAvatarForm />}
         />
         <ImagePopup data={selectedCard} isClose={closeAllPopups} />
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
       </CurrentUserContext.Provider>
     </div>
   );

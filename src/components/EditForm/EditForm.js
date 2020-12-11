@@ -1,6 +1,7 @@
 import React from "react";
 
-function AddForm() {
+function EditForm(props) {
+  
   return (
     <>
       <input
@@ -9,10 +10,11 @@ function AddForm() {
         required
         minLength="2"
         maxLength="40"
-        defaultValue=""
         placeholder="Имя"
         className="popup__input popup__input_type_name"
         id="name-input"
+        value={props.name}
+        onChange={props.onChangeName}
       />
       <span id="name-input-error" className="popup__input-error"></span>
       <input
@@ -21,14 +23,15 @@ function AddForm() {
         required
         minLength="2"
         maxLength="200"
-        defaultValue=""
         placeholder="О себе"
         className="popup__input popup__input_type_description"
         id="description-input"
+        value={props.description}
+        onChange={props.onChangeDescription}
       />
       <span id="description-input-error" className="popup__input-error"></span>
     </>
   );
 }
 
-export default AddForm;
+export default EditForm;
