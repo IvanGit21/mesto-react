@@ -1,6 +1,6 @@
 import React from "react";
 
-function AddForm() {
+function AddForm(props) {
   return (
     <>
       <input
@@ -9,20 +9,22 @@ function AddForm() {
         required
         minLength="2"
         maxLength="30"
-        defaultValue=""
         placeholder="Название"
         className="popup__input popup__input_type_card-name"
         id="card-name-input"
+        ref={props.inputCardName}
+        onChange={props.onInputCardName}
       />
       <span id="card-name-input-error" className="popup__input-error"></span>
       <input
         name="link"
         type="url"
         required
-        defaultValue=""
         placeholder="Ссылка на картинку"
         className="popup__input popup__input_type_url"
         id="url-input"
+        ref={props.inputLink}
+        onChange={props.onInputLink}
       />
       <span id="url-input-error" className="popup__input-error"></span>
     </>

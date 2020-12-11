@@ -1,60 +1,10 @@
 import React from "react";
-import api from "../../utils/api";
 import Card from "../Card/Card";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 function Main(props) {
-  const [cards, setCards] = React.useState([]);
+
   const currentUser = React.useContext(CurrentUserContext);
-
-  React.useEffect(() => {
-    api.getInitialCards().then((res) => {
-      setCards(res);
-    });
-  }, []);
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some((el) => el._id === currentUser._id);
-    if (isLiked) {
-      api
-        .removeLike(card._id)
-        .then((result) => {
-          const newCards = cards.map((item) => {
-            return item._id === card._id ? result : item;
-          });
-          setCards(newCards);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      api
-        .setLike(card._id)
-        .then((result) => {
-          const newCards = cards.map((item) => {
-            return item._id === card._id ? result : item;
-          });
-          setCards(newCards);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }
-
-  function handleCardDelete(card) {
-    api
-      .deleteCard(card._id)
-      .then((result) => {
-        const newCard = cards.filter((item) => {
-          return item._id !== card._id;
-        });
-        setCards(newCard);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
 
   return (
     <main className="content">
@@ -90,14 +40,14 @@ function Main(props) {
         ></button>
       </section>
       <section className="elements">
-        {cards.map((elem) => {
+        {props.cards.map((elem) => {
           return (
             <Card
               key={elem._id}
               data={elem}
               onCardClick={props.onCardClick}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              onCardLike={props.onCardLike}
+              onCardDelete={props.onCardDelete}
             />
           );
         })}
